@@ -1,0 +1,4 @@
+interface:
+  display_name: "HarmonyOS ArkTS API Docs"
+  short_description: "Use Huawei HarmonyOS ArkTS API docs and local SDK checks."
+  default_prompt: "Use official HarmonyOS ArkTS API docs and local SDK evidence to implement or verify this project."
