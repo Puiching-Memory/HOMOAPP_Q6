@@ -10,7 +10,27 @@
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "智享家"
+    },
+    {
+      "name": "EntryFormAbility_label",
+      "value": "智享家卡片"
+    },
+    {
+      "name": "EntryFormAbility_desc",
+      "value": "智能家居桌面服务卡片"
+    },
+    {
+      "name": "widget_display_name",
+      "value": "智享家"
+    },
+    {
+      "name": "widget_desc",
+      "value": "显示家庭环境和在线设备"
+    },
+    {
+      "name": "camera_permission_reason",
+      "value": "用于扫码绑定智能家居设备"
     }
   ]
 }
