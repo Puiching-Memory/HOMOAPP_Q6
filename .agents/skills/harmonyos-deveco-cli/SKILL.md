@@ -29,6 +29,8 @@ Use [`scripts/Invoke-DevEco.ps1`](scripts/Invoke-DevEco.ps1) before any DevEco c
 - Treat `PreviewBuild` as a long-running preview flow, not a quick one-shot command.
 - Expect `.preview` outputs under `entry\.preview\default\...`.
 - If the process does not exit, inspect the preview logs before retrying.
+- DevEco Previewer is an IDE-embedded web/canvas panel, not a separate Windows top-level window. To capture what the IDE is showing, use `scripts/Capture-DevEcoPreview.ps1` after the preview tab is open. It uses Win32 `PrintWindow` against the DevEco host window; crop coordinates are layout-dependent.
+- Example: `scripts\Capture-DevEcoPreview.ps1 -WindowTitlePattern '*MyApplication*Index.ets*' -OutputDirectory docs`.
 
 ## Rules
 - Use short Hvigor task names such as `assembleHap`, `test`, and `buildInfo`.
