@@ -1,0 +1,4 @@
+interface:
+  display_name: "HarmonyOS DevEco CLI"
+  short_description: "Run DevEco Studio CLI checks for this HarmonyOS project."
+  default_prompt: "Use this skill when building, linting, testing, previewing, packaging, or checking devices for this HarmonyOS project with the local DevEco Studio installation."
