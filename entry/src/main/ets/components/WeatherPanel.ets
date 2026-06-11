@@ -4,6 +4,7 @@ import { WeatherInfo } from '../models/DeviceModel';
 export struct WeatherPanel {
   @Prop weather: WeatherInfo;
   @Prop loadState: string;
+  @StorageLink('darkMode') darkMode: boolean = false;
 
   build() {
     Column({ space: 8 }) {
@@ -11,11 +12,11 @@ export struct WeatherPanel {
         Column({ space: 4 }) {
           Text('家庭环境')
             .fontSize(15)
-            .fontColor('#5B6372')
+            .fontColor(this.darkMode ? '#8B949E' : '#5B6372')
           Text(this.weather.city)
             .fontSize(24)
             .fontWeight(FontWeight.Bold)
-            .fontColor('#18202C')
+            .fontColor(this.darkMode ? '#E6EDF1' : '#18202C')
         }
         .alignItems(HorizontalAlign.Start)
 
@@ -25,15 +26,15 @@ export struct WeatherPanel {
           LoadingProgress()
             .width(36)
             .height(36)
-            .color('#246B8F')
+            .color(this.darkMode ? '#58A6FF' : '#246B8F')
         } else if (this.loadState === 'failed') {
           Text('离线')
             .fontSize(14)
-            .fontColor('#B42318')
+            .fontColor(this.darkMode ? '#F85149' : '#B42318')
         } else {
           Text(this.weather.text)
             .fontSize(16)
-            .fontColor('#246B8F')
+            .fontColor(this.darkMode ? '#58A6FF' : '#246B8F')
         }
       }
       .width('100%')
@@ -48,7 +49,7 @@ export struct WeatherPanel {
     .padding(16)
     .width('100%')
     .borderRadius(8)
-    .backgroundColor('#E9F3F7')
+    .backgroundColor(this.darkMode ? '#161B22' : '#E9F3F7')
   }
 
   @Builder
@@ -57,15 +58,15 @@ export struct WeatherPanel {
       Text(value)
         .fontSize(18)
         .fontWeight(FontWeight.Medium)
-        .fontColor('#1A1F2B')
+        .fontColor(this.darkMode ? '#C9D1D9' : '#1A1F2B')
       Text(label)
         .fontSize(12)
-        .fontColor('#647181')
+        .fontColor(this.darkMode ? '#8B949E' : '#647181')
     }
     .layoutWeight(1)
     .alignItems(HorizontalAlign.Start)
     .padding(10)
     .borderRadius(6)
-    .backgroundColor('#FFFFFF')
+    .backgroundColor(this.darkMode ? '#21262D' : '#FFFFFF')
   }
 }

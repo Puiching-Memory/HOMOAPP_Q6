@@ -1,4 +1,4 @@
-import { common } from '@kit.AbilityKit';
+import { common, ConfigurationConstant } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { scanBarcode } from '@kit.ScanKit';
 import { DeviceCard } from '../components/DeviceCard';
@@ -46,6 +46,7 @@ struct Index {
   async aboutToAppear(): Promise<void> {
     await this.restoreSettings();
     await this.loadWeather();
+    AppStorage.setOrCreate('darkMode', this.darkMode);
   }
 
   async restoreSettings(): Promise<void> {
@@ -133,10 +134,10 @@ struct Index {
     Column({ space: 2 }) {
       Text(icon)
         .fontSize(20)
-        .fontColor(this.currentTab === index ? '#246B8F' : '#7B8190')
+        .fontColor(this.currentTab === index ? (this.darkMode ? '#58A6FF' : '#246B8F') : (this.darkMode ? '#8B949E' : '#7B8190'))
       Text(label)
         .fontSize(11)
-        .fontColor(this.currentTab === index ? '#246B8F' : '#7B8190')
+        .fontColor(this.currentTab === index ? (this.darkMode ? '#58A6FF' : '#246B8F') : (this.darkMode ? '#8B949E' : '#7B8190'))
     }
     .width('100%')
     .height(54)
@@ -168,12 +169,18 @@ struct Index {
     })
     .vertical(false)
     .barHeight(60)
-    .backgroundColor(this.darkMode ? '#E9EDF1' : '#F6F8FA')
+    .backgroundColor(this.darkMode ? '#0D1117' : '#F6F8FA')
     .width('100%')
     .height('100%')
   }
 
   onDarkModeChanged(): void {
+    AppStorage.set('darkMode', this.darkMode);
+    try {
+      this.context.setColorMode(this.darkMode ? ConfigurationConstant.ColorMode.COLOR_MODE_DARK : ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT);
+    } catch (err) {
+      console.error('setColorMode failed:', JSON.stringify(err));
+    }
     if (!this.restoringSettings) {
       this.saveDarkMode(this.darkMode);
     }
@@ -193,10 +200,10 @@ struct Index {
           Text('智享家')
             .fontSize(30)
             .fontWeight(FontWeight.Bold)
-            .fontColor('#18202C')
+            .fontColor(this.darkMode ? '#E6EDF1' : '#18202C')
           Text(`默认网关 ${this.gatewayIp}`)
             .fontSize(13)
-            .fontColor('#687385')
+            .fontColor(this.darkMode ? '#8B949E' : '#687385')
         }
         .alignItems(HorizontalAlign.Start)
 
@@ -205,7 +212,7 @@ struct Index {
         Button('扫码')
           .height(40)
           .fontSize(14)
-          .backgroundColor('#246B8F')
+          .backgroundColor(this.darkMode ? '#2E7AB5' : '#246B8F')
           .borderRadius(6)
           .onClick(() => {
             this.startScan();
@@ -222,7 +229,7 @@ struct Index {
         Button('刷新样本')
           .height(40)
           .fontSize(14)
-          .backgroundColor('#B54708')
+          .backgroundColor(this.darkMode ? '#C97A2E' : '#B54708')
           .borderRadius(6)
           .onClick(() => {
             this.loadWeather();
@@ -231,7 +238,7 @@ struct Index {
         Button('切换天气')
           .height(40)
           .fontSize(14)
-          .backgroundColor('#4E7A5A')
+          .backgroundColor(this.darkMode ? '#5A8A6A' : '#4E7A5A')
           .borderRadius(6)
           .onClick(() => {
             this.switchWeatherProfile();
@@ -243,12 +250,12 @@ struct Index {
         Text('设备列表')
           .fontSize(20)
           .fontWeight(FontWeight.Medium)
-          .fontColor('#1A1F2B')
+          .fontColor(this.darkMode ? '#C9D1D9' : '#1A1F2B')
         Blank()
         Button('台灯控制')
           .height(36)
           .fontSize(13)
-          .backgroundColor('#426B4D')
+          .backgroundColor(this.darkMode ? '#4F6F5B' : '#426B4D')
           .borderRadius(6)
           .onClick(() => {
             this.getUIContext().getRouter().pushUrl({ url: 'pages/LightControl' });
@@ -271,6 +278,6 @@ struct Index {
     .padding(16)
     .width('100%')
     .height('100%')
-    .backgroundColor('#F6F8FA')
+    .backgroundColor(this.darkMode ? '#0D1117' : '#F6F8FA')
   }
 }
